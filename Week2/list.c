@@ -91,4 +91,153 @@ void destroy_list(List* self) {
 	}
 	self->head = NULL;
 }
-//Practicing
+//List_test function
+void list_test() {
+
+    List my_list = new_list();
+
+    printf("Testing insert_at_front...\n");
+
+    insert_at_front(&my_list, 5);
+    insert_at_front(&my_list, 3);
+    insert_at_front(&my_list, 7);
+    insert_at_front(&my_list, 2);
+    insert_at_front(&my_list, 0);
+
+    printf("Expected: 0, 2, 7, 3, 5\n");
+    printf("Result: ");
+
+    print_list(&my_list);
+
+    destroy_list(&my_list);
+}
+
+//Option helper functions
+void option_insert(List* self) {
+
+    int x;
+    printf("Enter number: ");
+    scanf("%d", &x);
+
+    insert_at_front(self, x);
+}
+
+void option_delete(List* self) {
+
+    int x;
+    printf("Delete number: ");
+    scanf("%d", &x);
+
+    delete_list(self, x);
+}
+
+void option_print(List* self) {
+
+    print_list(self);
+}
+//List_adhoc_test
+void list_adhoc_test() {
+
+    List my_list = new_list();
+
+    int x;
+
+    scanf("%d", &x);
+
+    while (x != 0) {
+
+        insert_at_front(&my_list, x);
+
+        scanf("%d", &x);
+    }
+
+    print_list(&my_list);
+
+    destroy_list(&my_list);
+}
+List merge(List* a, List* b)
+{
+    List result = new_list();
+
+    ListNodePtr ca = a->head;
+    ListNodePtr cb = b->head;
+
+    while (ca != NULL && cb != NULL)
+    {
+        if (ca->data < cb->data)
+        {
+            insert_in_order(&result, ca->data);
+            ca = ca->next;
+        }
+        else
+        {
+            insert_in_order(&result, cb->data);
+            cb = cb->next;
+        }
+    }
+
+    while (ca != NULL)
+    {
+        insert_in_order(&result, ca->data);
+        ca = ca->next;
+    }
+
+    while (cb != NULL)
+    {
+        insert_in_order(&result, cb->data);
+        cb = cb->next;
+    }
+
+    return result;
+}
+
+List reverse(List* self)
+{
+    List newList = new_list();
+
+    ListNodePtr current = self->head;
+
+    while (current != NULL)
+    {
+        insert_at_front(&newList, current->data);
+        current = current->next;
+    }
+
+    return newList;
+}
+// Merge function for ordered list
+List merge(List* a, List* b)
+{
+    List result = new_list();
+
+    ListNodePtr ca = a->head;
+    ListNodePtr cb = b->head;
+
+    while (ca != NULL && cb != NULL)
+    {
+        if (ca->data < cb->data)
+        {
+            insert_in_order(&result, ca->data);
+            ca = ca->next;
+        }
+        else
+        {
+            insert_in_order(&result, cb->data);
+            cb = cb->next;
+        }
+    }
+
+    while (ca != NULL)
+    {
+        insert_in_order(&result, ca->data);
+        ca = ca->next;
+    }
+
+    while (cb != NULL)
+    {
+        insert_in_order(&result, cb->data);
+        cb = cb->next;
+    }
+
+    return result;
+}
