@@ -135,62 +135,90 @@ void option_print(List* self) {
 
     print_list(self);
 }
-//List_adhoc_test
+
 void list_adhoc_test() {
 
     List my_list = new_list();
 
-    int x;
+    int quit = 0;
 
-    scanf("%d", &x);
+    while (!quit) {
 
-    while (x != 0) {
+        int option;
 
-        insert_at_front(&my_list, x);
+        printf("\n===== MENU =====\n");
+        printf("0. Quit\n");
+        printf("1. Insert\n");
+        printf("2. Delete\n");
+        printf("3. Print\n");
+        printf("4. Reverse Test\n");
+        printf("5. Merge Test\n");
 
-        scanf("%d", &x);
+        printf("Enter option: ");
+        scanf("%d", &option);
+
+        if (option == 0) {
+            quit = 1;
+        }
+        else if (option == 1) {
+            option_insert(&my_list);
+        }
+        else if (option == 2) {
+            option_delete(&my_list);
+        }
+        else if (option == 3) {
+            option_print(&my_list);
+        }
+
+        // ✅ REVERSE TEST
+        else if (option == 4) {
+            List rev = reverse(&my_list);
+
+            printf("Reversed list: ");
+            print_list(&rev);
+
+            destroy_list(&rev);
+        }
+
+        // ✅ MERGE TEST
+        else if (option == 5) {
+
+            List l2 = new_list();
+
+            int n, val;
+
+            printf("How many elements for second list? ");
+            scanf("%d", &n);
+
+            for (int i = 0; i < n; i++) {
+                printf("Enter value: ");
+                scanf("%d", &val);
+                insert_in_order(&l2, val);
+            }
+
+            printf("List 1: ");
+            print_list(&my_list);
+
+            printf("List 2: ");
+            print_list(&l2);
+
+            List merged = merge(&my_list, &l2);
+
+            printf("Merged list: ");
+            print_list(&merged);
+
+            destroy_list(&l2);
+            destroy_list(&merged);
+        }
+
+        else {
+            printf("Invalid option!\n");
+        }
     }
-
-    print_list(&my_list);
 
     destroy_list(&my_list);
 }
-List merge(List* a, List* b)
-{
-    List result = new_list();
-
-    ListNodePtr ca = a->head;
-    ListNodePtr cb = b->head;
-
-    while (ca != NULL && cb != NULL)
-    {
-        if (ca->data < cb->data)
-        {
-            insert_in_order(&result, ca->data);
-            ca = ca->next;
-        }
-        else
-        {
-            insert_in_order(&result, cb->data);
-            cb = cb->next;
-        }
-    }
-
-    while (ca != NULL)
-    {
-        insert_in_order(&result, ca->data);
-        ca = ca->next;
-    }
-
-    while (cb != NULL)
-    {
-        insert_in_order(&result, cb->data);
-        cb = cb->next;
-    }
-
-    return result;
-}
-
+//Reverse list function
 List reverse(List* self)
 {
     List newList = new_list();
