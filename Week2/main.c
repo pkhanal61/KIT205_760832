@@ -36,7 +36,15 @@ int main() {
     printf("\nMerged List: ");
     print_list(&merged);
 
- 
+
+    destroy_list(&l1);
+    destroy_list(&l2);
+    destroy_list(&rev_l1);
+    destroy_list(&merged);
+
+    // Run Ad Hoc Menu Test
+    printf("\nStarting Ad Hoc Test...\n");
+    list_adhoc_test();
 
     return 0;
 }
